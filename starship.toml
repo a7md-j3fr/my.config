@@ -1,0 +1,90 @@
+#right_format = """$all"""
+#command_timeout= 500
+#scan_timeout = 30
+add_newline = false
+
+
+format = """${custom.pr1}$username${custom.pr2}$hostname${custom.pr3}${custom.pr4}$directory${custom.pr5}
+${custom.pr6}$status$cmd_duration
+${custom.pr7}$sudo """
+
+###########################
+[custom.pr1]
+when = "test 1 -eq 1"
+format = "[┌─\\[]($style)"
+style = "bold #dbb811"
+[custom.pr2]
+when = "test 1 -eq 1"
+format = "[@]($style)"
+style = "bold #dbb811"
+[custom.pr3]
+when = "test 1 -eq 1"
+format = "[\\]]($style)"
+style = "bold #dbb811"
+[custom.pr4]
+when = "test 1 -eq 1"
+format = "[─\\[]($style)"
+style = "bold #dbb811"
+[custom.pr5]
+when = "test 1 -eq 1"
+format = "[\\]]($style)"
+style = "bold #dbb811"
+[custom.pr6]
+when = "test 1 -eq 1"
+format = "[│]($style)"
+style = "bold #dbb811"
+[custom.pr7]
+when = "test 1 -eq 1"
+format = "[└─>\\$]($style)"
+style = "bold #dbb811"
+[custom.pr8]
+format = "[{$custom.pr8}]($style)"
+when = "test 1 -eq 1"
+##############################
+
+
+############################
+[username]
+style_user = "#07e2e6"
+style_root = "#ff0000"
+format = "[$user]($style)"
+disabled = false
+show_always = true
+############################
+[hostname]
+ssh_only = false
+format =  "[$hostname]($style)"
+style = "#07e2e6"
+###########################
+[directory]
+truncation_length = 5
+truncation_symbol = "…/"
+style = "#07e2e6"
+format = "[$path]($style)"
+#truncate_to_repo = true
+#disabled = true
+#read_only = "!"
+#read_only_style = "(bold red)"
+#repo_root_style =
+#home_symbol = "U+2302"
+#use_os_path_sep = true
+##############################
+[cmd_duration]
+min_time = 0
+format = "[$duration]($style)"
+style = "#ff44ff"
+show_milliseconds = false
+min_time_to_notify = 500_000
+show_notifications = true
+###############################
+[status]
+disabled = false
+pipestatus = true
+map_symbol = true
+###############################
+[sudo]
+format = "[$symbol]($style)"
+symbol = "#"
+style = "bold red"
+allow_windows = false
+disabled = false
