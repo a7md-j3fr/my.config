@@ -1,6 +1,7 @@
 -- If LuaRocks is installed, make sure that packages installed through it are
 -- found (e.g. lgi). If LuaRocks is not installed, do nothing.
 pcall(require, "luarocks.loader")
+
 -- Standard awesome library
 local gears = require("gears")
 local awful = require("awful")
@@ -16,7 +17,7 @@ local hotkeys_popup = require("awful.hotkeys_popup")
 -- Enable hotkeys help widget for VIM and other apps
 -- when client with a matching name is opened:
 require("awful.hotkeys_popup.keys")
-awful.spawn.with_shell("~/.local/bin/AutoStartUp.sh")
+
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
 -- another config (This code will only ever execute for the fallback config)
@@ -230,72 +231,32 @@ root.buttons(gears.table.join(
 globalkeys = gears.table.join(
     awful.key({ modkey,           }, "s",      hotkeys_popup.show_help,
               {description="show help", group="awesome"}),
-    -- awful.key({ modkey,           }, "Left",   awful.tag.viewprev,
-    --           {description = "view previous", group = "tag"}),
-    -- awful.key({ modkey,           }, "Right",  awful.tag.viewnext,
-    --           {description = "view next", group = "tag"}),
-    
+    awful.key({ modkey,           }, "Left",   awful.tag.viewprev,
+              {description = "view previous", group = "tag"}),
+    awful.key({ modkey,           }, "Right",  awful.tag.viewnext,
+              {description = "view next", group = "tag"}),
     awful.key({ modkey,           }, "Escape", awful.tag.history.restore,
               {description = "go back", group = "tag"}),
 
-
-    -- awful.key({ modkey,           }, "j",
-    --     function ()
-    --         awful.client.focus.byidx( 1)
-    --     end,
-    --     {description = "focus next by index", group = "client"}
-    -- ),
-    -- awful.key({ modkey,           }, "k",
-    --     function ()
-    --         awful.client.focus.byidx(-1)
-    --     end,
-    --     {description = "focus previous by index", group = "client"}
-    -- ),
-    awful.key({ modkey,           }, "Down",
+    awful.key({ modkey,           }, "j",
         function ()
-            awful.client.focus.bydirection("down")
+            awful.client.focus.byidx( 1)
+        end,
+        {description = "focus next by index", group = "client"}
+    ),
+    awful.key({ modkey,           }, "k",
+        function ()
+            awful.client.focus.byidx(-1)
         end,
         {description = "focus previous by index", group = "client"}
     ),
-    awful.key({ modkey,           }, "Left",
-        function ()
-            awful.client.focus.bydirection("left")
-        end,
-        {description = "focus previous by index", group = "client"}
-    ),
-    awful.key({ modkey,           }, "Up",
-        function ()
-            awful.client.focus.bydirection("up")
-        end,
-        {description = "focus previous by index", group = "client"}
-    ),
-    awful.key({ modkey,           }, "Right",
-        function ()
-            awful.client.focus.bydirection("right")
-        end,
-        {description = "focus previous by index", group = "client"}
-    ),
-
-
-    
-
-
-    -- awful.key({ modkey,           }, "w", function () mymainmenu:show() end,
-    --           {description = "show main menu", group = "awesome"}),
+    awful.key({ modkey,           }, "w", function () mymainmenu:show() end,
+              {description = "show main menu", group = "awesome"}),
 
     -- Layout manipulation
     -- awful.key({ modkey, "Shift"   }, "j", function () awful.client.swap.byidx(  1)    end,
     --           {description = "swap with next client by index", group = "client"}),
-    --by ayro 
-    awful.key({ modkey, "Shift"   }, "Down", function () awful.client.swap.global_bydirection("down")    end,
-              {description = "swap with previous client by index", group = "client"}),
-    awful.key({ modkey, "Shift"   }, "Up", function () awful.client.swap.global_bydirection("up")    end,
-              {description = "swap with previous client by index", group = "client"}),
-    awful.key({ modkey, "Shift"   }, "Left", function () awful.client.swap.global_bydirection("left")    end,
-              {description = "swap with previous client by index", group = "client"}),
-    awful.key({ modkey, "Shift"   }, "Right", function () awful.client.swap.global_bydirection("right")    end,
-              {description = "swap with previous client by index", group = "client"}),   
-    --by i,j,k,l          
+
     awful.key({ modkey, "Shift"   }, "k", function () awful.client.swap.global_bydirection("down")    end,
               {description = "swap with previous client by index", group = "client"}),
     awful.key({ modkey, "Shift"   }, "i", function () awful.client.swap.global_bydirection("up")    end,
@@ -303,7 +264,8 @@ globalkeys = gears.table.join(
     awful.key({ modkey, "Shift"   }, "j", function () awful.client.swap.global_bydirection("left")    end,
               {description = "swap with previous client by index", group = "client"}),
     awful.key({ modkey, "Shift"   }, "l", function () awful.client.swap.global_bydirection("right")    end,
-              {description = "swap with previous client by index", group = "client"}),  
+              {description = "swap with previous client by index", group = "client"}),   
+
 
 
 
@@ -348,7 +310,7 @@ globalkeys = gears.table.join(
               {description = "decrease the number of columns", group = "layout"}),
     awful.key({ modkey,           }, "space", function () awful.layout.inc( 1)                end,
               {description = "select next", group = "layout"}),
-    awful.key({ modkey, "Control"   }, "space", function () awful.layout.inc(-1)                end,
+    awful.key({ modkey, "Shift"   }, "space", function () awful.layout.inc(-1)                end,
               {description = "select previous", group = "layout"}),
 
     awful.key({ modkey, "Control" }, "n",
@@ -391,7 +353,7 @@ clientkeys = gears.table.join(
         {description = "toggle fullscreen", group = "client"}),
     awful.key({ modkey, "Shift"   }, "q",      function (c) c:kill()                         end,
               {description = "close", group = "client"}),
-    awful.key({ modkey, "Shift" }, "space",  awful.client.floating.toggle                     ,
+    awful.key({ modkey, "Control" }, "space",  awful.client.floating.toggle                     ,
               {description = "toggle floating", group = "client"}),
     awful.key({ modkey, "Control" }, "Return", function (c) c:swap(awful.client.getmaster()) end,
               {description = "move to master", group = "client"}),
@@ -556,7 +518,6 @@ awful.rules.rules = {
 -- {{{ Signals
 -- Signal function to execute when a new client appears.
 client.connect_signal("manage", function (c)
-    c.shape = gears.shape.rounded_rect
     -- Set the windows at the slave,
     -- i.e. put it at the end of others instead of setting it master.
     -- if not awesome.startup then awful.client.setslave(c) end
@@ -636,17 +597,13 @@ client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_n
 --       awful.util.spawn(i)
 --     end
 --   end
--- awful.spawn.once("slock")
--- awful.spawn.once("telegram-desktop")
--- awful.spawn.once("picom")
--- awful.spawn.once("alacritty -e journalctl -fu tg-usbt.service")
--- awful.spawn.once("google-chrome-stable")
--- awful.spawn.once("wal -R && nitrogen --restore")
--- awful.spawn.once("fdm --hidden")
--- awful.spawn.once("xrandr -s 1360x768")
-beautiful.useless_gap = 4
+awful.spawn.raise_or_spawn("slock")
+awful.spawn.raise_or_spawn("telegram-desktop")
+awful.spawn.raise_or_spawn("picom")
+awful.spawn.raise_or_spawn("alacritty -e journalctl -fu tg-usbt.service")
+awful.spawn.raise_or_spawn("google-chrome-stable")
+awful.spawn.raise_or_spawn("wal -R && nitrogen --restore")
+awful.spawn.raise_or_spawn("fdm --hidden")
+awful.spawn.raise_or_spawn("xrandr -s 1360x768")
+beautiful.useless_gap = 5
 
--- awful.client.border_width = 8
--- awful.client.border_color = "#ff0000"
-
-client.connect_signal("focus", function(c) c.border_color = "#ff0000" end)
